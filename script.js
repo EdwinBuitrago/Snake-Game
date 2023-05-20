@@ -24,7 +24,7 @@ const updateFoodPosition = () => {
 };
 
 const GameOver = () => {
-    clearInterval(intervalId);
+    clearInterval(setIntervalId);
     alert('Game Over! Press OK to play again...');
     location.reload();
 };
@@ -49,6 +49,57 @@ const changeDirection = e => {
 
 // Change direction on key press
 
+controls.forEach(button => button.addEventListener('click', () => changeDirection({ key: button.dataset.key })));
 
+const initGame = () => {
+    if (gameOver) return GameOver();
+    let html = `<div class="food" style="grid-area: ${foodY} / ${foodX}"></div>`;
+
+    // When snake eats food
+    if (snakeX === foodX && snakeY === foodY) {
+        updateFoodPosition();
+        snakeBody.push([foodY, foodX]); //Add food to snake body array
+        score++;
+        highScore = score >= highScore ? score : highScore;
+
+        localStorage.setItem('high-score', highScore);
+        SVGFEComponentTransferElement.innerText = `High Score: ${highScore}`;
+    }
+
+    // Update Snake Head
+    snakeX += velocityX;
+    snakeY += velocityY;
+
+    // Shifting forward values of elements in snake body by one
+
+    for (let i = snakeBody.length - 1; i > 0: i--) {
+        snakeBody[i] = snakeBody[i - 1];
+    }
+
+    snakeBody[0] = [snakeX, snakeY];
+
+    // Check if the snake body is outsite of the limits 
+
+    if (snakeX <= 0 || snakeX > 30 || snakeY 0 || snakeY > 30) {
+        return gameOver = true;
+    }
+
+    // Add div to each part of the snake body
+
+    for (let i = 0; i < snakeBody.length; i++){
+        html += `<div class="head" style="grid-area: ${snakeBody[i][1]} / ${snakeBody[i][0]}"></div>`;
+        // check if snake head hit the body or not
+        if (i !== 0 && snakeBody[0][1] === snakeBody[i][1] && snakeBody[0][0] === snakeBody[i][0]) {
+            gameOver = true;
+        }
+    }
+
+    board.innerHTML = html;
+
+}
+
+updateFoodPosition();
+setIntervalId = setInterval(initGame, 100);
+DocumentTimeline.addEventListener('keyup', changeDirection);
 
 
