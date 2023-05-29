@@ -1,6 +1,6 @@
-const board = document.querySelector('board');
-const gameScore = document.querySelector('score');
-const gameHighScore = document.querySelector('high-score');
+const board = document.querySelector('.board');
+const gameScore = document.querySelector('.score');
+const gameHighScore = document.querySelector('.high-score');
 const controls = document.querySelectorAll('.controls i');
 
 let gameOver = false;
@@ -24,7 +24,7 @@ const updateFoodPosition = () => {
 };
 
 const GameOver = () => {
-    clearInterval(setIntervalId);
+    clearInterval(intervalId);
     alert('Game Over! Press OK to play again...');
     location.reload();
 };
@@ -63,7 +63,8 @@ const initGame = () => {
         highScore = score >= highScore ? score : highScore;
 
         localStorage.setItem('high-score', highScore);
-        SVGFEComponentTransferElement.innerText = `High Score: ${highScore}`;
+        score.innerText = `Score: ${score}`;
+        highScore.innerText = `High Score: ${highScore}`;
     }
 
     // Update Snake Head
@@ -72,7 +73,7 @@ const initGame = () => {
 
     // Shifting forward values of elements in snake body by one
 
-    for (let i = snakeBody.length - 1; i > 0: i--) {
+    for (let i = snakeBody.length - 1; i > 0; i--) {
         snakeBody[i] = snakeBody[i - 1];
     }
 
@@ -80,7 +81,7 @@ const initGame = () => {
 
     // Check if the snake body is outsite of the limits 
 
-    if (snakeX <= 0 || snakeX > 30 || snakeY 0 || snakeY > 30) {
+    if (snakeX <= 0 || snakeX > 30 || snakeY <= 0 || snakeY > 30) {
         return gameOver = true;
     }
 
@@ -99,7 +100,7 @@ const initGame = () => {
 }
 
 updateFoodPosition();
-setIntervalId = setInterval(initGame, 100);
-DocumentTimeline.addEventListener('keyup', changeDirection);
+intervalId = setInterval(initGame, 100);
+document.addEventListener('keyup', changeDirection);
 
 
