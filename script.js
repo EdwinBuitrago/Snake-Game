@@ -14,7 +14,7 @@ let score = 0;
 // Get high score from local storage
 
 let highScore = localStorage.getItem('high-score') || 0;
-gameHighScore.innerText = `High Score: ${gameHighScore}`;
+gameHighScore.innerText = `High Score: ${highScore}`;
 
 // psss a random between 1 and 30 as food position
 
@@ -32,16 +32,16 @@ const GameOver = () => {
 // Change speed value based on key press
 
 const changeDirection = e => {
-    if (e.key === 'arrowUp' && speedY != 1) {
+    if (e.key === 'ArrowUp' && speedY != 1) {
         speedX = 0;
         speedY = -1;
-    } else if (e.key === 'arrowDown' && speedY != -1) {
+    } else if (e.key === 'ArrowDown' && speedY != -1) {
         speedX = 0;
-        speedY = -1;
-    } else if (e.key === 'arrowLeft' && speedX != 1) {
+        speedY = 1;
+    } else if (e.key === 'ArrowLeft' && speedX != 1) {
         speedX = -1;
         speedY = 0;
-    } else if (e.key === 'arrowRight' && speedX != -1) {
+    } else if (e.key === 'ArrowRight' && speedX != -1) {
         speedX = 1;
         speedY = 0;
     }
@@ -63,13 +63,13 @@ const initGame = () => {
         highScore = score >= highScore ? score : highScore;
 
         localStorage.setItem('high-score', highScore);
-        score.innerText = `Score: ${score}`;
+        score.innerText = `Score: ${gameScore}`;
         highScore.innerText = `High Score: ${highScore}`;
     }
 
     // Update Snake Head
-    snakeX += velocityX;
-    snakeY += velocityY;
+    snakeX += speedX;
+    snakeY += speedY;
 
     // Shifting forward values of elements in snake body by one
 
