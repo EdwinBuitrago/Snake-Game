@@ -47,11 +47,13 @@ body {
 } 
 
 .board .food {
-    background: red;
+    background: yellow;
 }
 
 .board .head {
-    background: blue;
+    background: blueviolet;
+    border-color: white;
+    border-style: solid;
 }
 
 .controls {
